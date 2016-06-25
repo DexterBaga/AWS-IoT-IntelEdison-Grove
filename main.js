@@ -1,5 +1,5 @@
 var awsIot = require('aws-iot-device-sdk');
-var lcd = require('./display.js');
+
 
 var device = awsIot.device({
    keyPath: __dirname + '/certs/private.pem.key',
@@ -19,19 +19,8 @@ device
   
   device
   .on('message', function(topic, payload) {
-    lcd.setLine1Text(payload.toString());
-    console.log('Topic:', topic, 'Payload:', payload.toString());
     
-    var data = JSON.parse(payload.toString());
-    if (data.Color === 'R') {
-       lcd.setBackgroundColor(255,0,0);
-    }
-    if (data.Color === 'G') {
-       lcd.setBackgroundColor(0,255,0);
-    }
-    if (data.Color === 'B') {
-       lcd.setBackgroundColor(0,0,255);
-    }
+    console.log('Topic:', topic, 'Payload:', payload.toString());
     
   });
 
