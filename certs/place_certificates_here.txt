@@ -1,0 +1,4 @@
+Name your files as follows
+certificate.pem.crt
+private.pem.key
+root-ca.crt
