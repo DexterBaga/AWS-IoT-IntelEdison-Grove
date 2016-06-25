@@ -39,8 +39,10 @@ jspm_packages
 #certificates
 *.crt
 *.key
+*.pem
 
 #intel xdk files
 *.xdk
 *.xdke
+xdk*.json
 xdk

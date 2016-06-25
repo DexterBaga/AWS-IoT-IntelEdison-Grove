@@ -2,9 +2,9 @@ var awsIot = require('aws-iot-device-sdk');
 var lcd = require('./display.js');
 
 var device = awsIot.device({
-   keyPath: 'private.pem.key',
-  certPath: 'certificate.pem.crt',
-    caPath: 'root-ca.crt',
+   keyPath: __dirname + '/certs/private.pem.key',
+  certPath: __dirname + '/certs/certificate.pem.crt',
+    caPath: __dirname + '/certs/root-ca.pem',
   clientId: 'tobeiot',
     region: 'us-east-1'
 });
@@ -20,7 +20,7 @@ device
   device
   .on('message', function(topic, payload) {
     lcd.setLine1Text(payload.toString());
-    console.log('message', topic, payload.toString());
+    console.log('Topic:', topic, 'Payload:', payload.toString());
     
     var data = JSON.parse(payload.toString());
     if (data.Color === 'R') {
@@ -39,9 +39,8 @@ device
 function selectColor(){
     var index = Math.floor(Math.random() * 3);
     var colorcode = colorOptions[index];
-    device.publish('topic_1','{"Color": "' + colorCode + '"}');
-    console.log(colorcode);
+    device.publish('topic_1','{"Color": "' + colorcode + '"}');
 }
 
-setInterval(selectColor,5000);
+setInterval(selectColor,2000);
 
